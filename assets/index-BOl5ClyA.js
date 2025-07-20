@@ -147,7 +147,7 @@
               </div>
             `).join("")}
           </div>
-        `)}renderError(e,t){const r=e.querySelector("#loading"),s=e.querySelector("#error-message");r&&(r.style.display="none"),s&&(s.style.display="block",s.textContent=`오류: ${t}`)}}class Qs{authManager;constructor(e){this.authManager=e}shuffleArray(e){const t=[...e];for(let r=t.length-1;r>0;r--){const s=Math.floor(Math.random()*(r+1));[t[r],t[s]]=[t[s],t[r]]}return t}async loadMemoryCards(){try{const e=this.authManager.getSupabaseClient(),{data:{session:t}}=await e.auth.getSession();if(!t)return console.log("로그인되지 않은 사용자"),[];const{data:r,error:s}=await e.from("memory_cards").select("*");return s?(console.error("메모리 카드 로딩 실패:",s),[]):this.shuffleArray(r||[]).slice(0,3)}catch(e){return console.error("메모리 카드 로딩 중 오류:",e),[]}}async saveMemoryCard(e,t){try{const r=this.authManager.getSupabaseClient(),{data:{session:s}}=await r.auth.getSession();if(!s)return console.error("로그인되지 않은 사용자"),!1;const{error:i}=await r.from("memory_cards").insert({url:e,memo:t,user_id:s.user.id});return i?(console.error("메모리 카드 저장 실패:",i),!1):!0}catch(r){return console.error("메모리 카드 저장 중 오류:",r),!1}}async getInputNewMemoryCard(){return new Promise((e,t)=>{const r=document.createElement("div");r.className="modal-overlay",r.style.cssText=`
+        `)}renderError(e,t){const r=e.querySelector("#loading"),s=e.querySelector("#error-message");r&&(r.style.display="none"),s&&(s.style.display="block",s.textContent=`오류: ${t}`)}}class Qs{authManager;constructor(e){this.authManager=e}shuffleArray(e){const t=[...e];for(let r=t.length-1;r>0;r--){const s=Math.floor(Math.random()*(r+1));[t[r],t[s]]=[t[s],t[r]]}return t}async loadMemoryCards(){try{const e=this.authManager.getSupabaseClient(),{data:{session:t}}=await e.auth.getSession();if(!t)return console.log("로그인되지 않은 사용자"),[];const{data:r,error:s}=await e.from("memory_cards").select("*");return s?(console.error("메모리 카드 로딩 실패:",s),[]):this.shuffleArray(r||[]).slice(0,3)}catch(e){return console.error("메모리 카드 로딩 중 오류:",e),[]}}async saveMemoryCard(e,t){try{const r=this.authManager.getSupabaseClient(),{data:{session:s}}=await r.auth.getSession();if(!s)return console.error("로그인되지 않은 사용자"),!1;const{error:i}=await r.from("memory_cards").insert({url:e.trim()||null,memo:t,user_id:s.user.id});return i?(console.error("메모리 카드 저장 실패:",i),!1):!0}catch(r){return console.error("메모리 카드 저장 중 오류:",r),!1}}async getInputNewMemoryCard(){return new Promise((e,t)=>{const r=document.createElement("div");r.className="modal-overlay",r.style.cssText=`
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
         background: rgba(0,0,0,0.5); display: flex; justify-content: center;
         align-items: center; z-index: 1000; max-width: none; margin: 0;
@@ -155,19 +155,19 @@
         <div style="background: white; padding: 20px; border-radius: 8px; width: 90vw; max-width: 500px; min-width: 300px;">
           <h3 style="margin: 0 0 20px 0;">메모리 카드 추가</h3>
           <div style="margin: 15px 0;">
-            <label>URL:</label><br>
-            <input type="url" id="memory-card-url" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;" placeholder="https://example.com">
+            <label>메모:</label><br>
+            <textarea id="memory-card-memo" style="width: 100%; padding: 8px; margin-top: 5px; height: 60px; border: 1px solid #ccc; border-radius: 4px; resize: vertical;" placeholder="메모할 내용을 입력하세요"></textarea>
           </div>
           <div style="margin: 15px 0;">
-            <label>메모:</label><br>
-            <textarea id="memory-card-memo" style="width: 100%; padding: 8px; margin-top: 5px; height: 60px; border: 1px solid #ccc; border-radius: 4px; resize: vertical;" placeholder="메모를 입력하세요"></textarea>
+            <label>URL:</label><br>
+            <input type="url" id="memory-card-url" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;" placeholder="https://example.com (생략 가능)">
           </div>
           <div style="text-align: right; margin-top: 20px;">
             <button type="button" id="cancel-btn" style="margin-right: 10px; padding: 8px 16px; border: 1px solid #ccc; background: white; border-radius: 4px;">취소</button>
             <button type="button" id="save-btn" style="padding: 8px 16px; background: #007bff; color: white; border: none; border-radius: 4px;">저장</button>
           </div>
         </div>
-      `,document.body.appendChild(r);const s=r.querySelector("#memory-card-url"),i=r.querySelector("#memory-card-memo"),o=r.querySelector("#cancel-btn"),a=r.querySelector("#save-btn");let l=!1;const c=()=>{l||(l=!0,document.removeEventListener("keydown",d),r.parentNode&&document.body.removeChild(r))},u=()=>{c(),t(new Error("입력이 취소되었습니다"))},h=()=>{const f=s.value.trim(),g=i.value.trim();if(!f){alert("URL을 입력해주세요"),s.focus();return}c(),e({url:f,memo:g})};o.onclick=u,a.onclick=h;const d=f=>{f.key==="Escape"&&u()};document.addEventListener("keydown",d),s.focus()})}async render(e){e.innerHTML=`
+      `,document.body.appendChild(r);const s=r.querySelector("#memory-card-url"),i=r.querySelector("#memory-card-memo"),o=r.querySelector("#cancel-btn"),a=r.querySelector("#save-btn");let l=!1;const c=()=>{l||(l=!0,document.removeEventListener("keydown",d),r.parentNode&&document.body.removeChild(r))},u=()=>{c(),t(new Error("입력이 취소되었습니다"))},h=()=>{const f=s.value.trim(),g=i.value.trim();if(!g){alert("Memo를 입력해주세요"),i.focus();return}c(),e({url:f,memo:g})};o.onclick=u,a.onclick=h;const d=f=>{f.key==="Escape"&&u()};document.addEventListener("keydown",d),i.focus()})}async render(e){e.innerHTML=`
       <div style="text-align: center; padding: 20px;">
         <div id="loading">로딩 중...</div>
         <div id="memory-card-list" style="display: none;"></div>
