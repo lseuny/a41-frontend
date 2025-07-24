@@ -207,10 +207,10 @@
                 <center>
                 <ins class="adsbygoogle"
                     style="display:block"
-                    data-ad-format="fluid"
-                    data-ad-layout-key="-gg-o-23-bd+12d"
+                    data-ad-format="auto"
                     data-ad-client="ca-pub-0479119504611141"
-                    data-ad-slot="8318695333"></ins>
+                    data-ad-slot="9501933923">
+                    data-full-width-responsive="true"</ins>
                 </center>
                 <hr />
             `,e.appendChild(this.container),this.isLocalhost()||this.loadAdScript()}remove(){this.container&&this.container.parentNode&&(this.container.parentNode.removeChild(this.container),this.container=null)}loadAdScript(){if(this.isLocalhost()){console.log("로컬호스트 환경에서는 애드센스 스크립트를 로드하지 않습니다.");return}if(document.querySelector('script[src*="adsbygoogle.js"]'))this.initializeAd();else{const e=document.createElement("script");e.async=!0,e.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0479119504611141",e.crossOrigin="anonymous",e.onload=()=>{this.initializeAd()},document.head.appendChild(e)}}initializeAd(){try{window.adsbygoogle=window.adsbygoogle||[],window.adsbygoogle.push({}),console.log("애드센스 광고 초기화 완료")}catch(e){console.error("애드센스 광고 초기화 실패:",e)}}}class Xs{articleList;authManager;advertisement;currentPage="home";isLoading=!1;constructor(){this.initializeApp()}async initializeApp(){await Dt(),this.authManager=new Gs,this.authManager.onAuthStateChange(this.handleAuthStateChange.bind(this)),this.initializeDOM(),await this.initializeComponents();const e=await this.authManager.getCurrentAuthState();this.renderAuthStatus(e),this.navigateToPage("home")}initializeDOM(){this.renderHeader(),this.renderFooter()}handleAuthStateChange(e){this.renderAuthStatus(e)}renderAuthStatus(e){const t=this.getRequiredElement("#auth-status");e.isLoggedIn?(t.innerHTML=`
