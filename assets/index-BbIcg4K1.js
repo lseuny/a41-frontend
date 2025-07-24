@@ -209,7 +209,7 @@
                     style="display:block"
                     data-ad-format="auto"
                     data-ad-client="ca-pub-0479119504611141"
-                    data-ad-slot="9501933923">
+                    data-ad-slot="9501933923"
                     data-full-width-responsive="true"></ins>
                 </center>
                 <hr />
