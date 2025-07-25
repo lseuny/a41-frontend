@@ -219,7 +219,31 @@
             <div style="text-align: center; padding: 20px;">
                 <article aria-busy="true" style="max-width: 300px; margin: 0 auto;">다음 글을 불러오는 중...</article>
             </div>
-        `,this.container.parentNode&&this.container.parentNode.insertBefore(e,this.container.nextSibling)}showWithContent(){if(!this.container)return;const e=this.container.parentNode?.querySelector(".bottom-loading-state");e&&e.remove(),this.container.style.display="block"}remove(){this.container&&this.container.parentNode&&(this.container.parentNode.removeChild(this.container),this.container=null);const e=document.querySelector(".bottom-loading-state");e&&e.remove()}loadAdScript(){if(this.isLocalhost()){console.log("로컬호스트 환경에서는 애드센스 스크립트를 로드하지 않습니다.");return}if(document.querySelector('script[src*="adsbygoogle.js"]'))this.initializeAd();else{const e=document.createElement("script");e.async=!0,e.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0479119504611141",e.crossOrigin="anonymous",e.onload=()=>{this.initializeAd()},document.head.appendChild(e)}}initializeAd(){try{window.adsbygoogle=window.adsbygoogle||[],window.adsbygoogle.push({}),console.log("애드센스 광고 초기화 완료")}catch(e){console.error("애드센스 광고 초기화 실패:",e)}}}class Xs{articleList;authManager;bottomSection;currentPage="home";isLoading=!1;constructor(){this.initializeApp()}async initializeApp(){await Dt(),this.authManager=new Gs,this.authManager.onAuthStateChange(this.handleAuthStateChange.bind(this)),this.initializeDOM(),await this.initializeComponents();const e=await this.authManager.getCurrentAuthState();this.renderAuthStatus(e),this.navigateToPage("home")}initializeDOM(){this.renderHeader(),this.renderFooter()}handleAuthStateChange(e){this.renderAuthStatus(e)}renderAuthStatus(e){const t=this.getRequiredElement("#auth-status");e.isLoggedIn?(t.innerHTML=`
+        `,this.container.parentNode&&this.container.parentNode.insertBefore(e,this.container.nextSibling)}showWithContent(){if(!this.container)return;const e=this.container.parentNode?.querySelector(".bottom-loading-state");e&&e.remove(),this.refreshAdSection(),this.container.style.display="block"}remove(){this.container&&this.container.parentNode&&(this.container.parentNode.removeChild(this.container),this.container=null);const e=document.querySelector(".bottom-loading-state");e&&e.remove()}loadAdScript(){if(this.isLocalhost()){console.log("로컬호스트 환경에서는 애드센스 스크립트를 로드하지 않습니다.");return}if(document.querySelector('script[src*="adsbygoogle.js"]'))this.initializeAd();else{const e=document.createElement("script");e.async=!0,e.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0479119504611141",e.crossOrigin="anonymous",e.onload=()=>{this.initializeAd()},document.head.appendChild(e)}}initializeAd(){try{window.adsbygoogle=window.adsbygoogle||[],window.adsbygoogle.push({}),console.log("애드센스 광고 초기화 완료")}catch(e){console.error("애드센스 광고 초기화 실패:",e)}}refreshAdSection(){if(!this.container)return;const e=this.container.querySelector(".ad");e&&(e.innerHTML="",this.isLocalhost()?e.innerHTML=`
+                <center>
+                    <div style="
+                        padding: 20px;
+                        background-color: #f5f5f5;
+                        border: 2px dashed #ccc;
+                        color: #666;
+                        font-size: 14px;
+                        margin: 10px 0;
+                    ">
+                        광고 영역 (새로고침됨: ${new Date().toLocaleTimeString()})
+                    </div>
+                </center>
+                <hr />
+            `:(e.innerHTML=`
+                <center>
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-format="auto"
+                    data-ad-client="ca-pub-0479119504611141"
+                    data-ad-slot="9501933923"
+                    data-full-width-responsive="true"></ins>
+                </center>
+                <hr />
+            `,setTimeout(()=>{this.initializeAd()},100)))}}class Xs{articleList;authManager;bottomSection;currentPage="home";isLoading=!1;constructor(){this.initializeApp()}async initializeApp(){await Dt(),this.authManager=new Gs,this.authManager.onAuthStateChange(this.handleAuthStateChange.bind(this)),this.initializeDOM(),await this.initializeComponents();const e=await this.authManager.getCurrentAuthState();this.renderAuthStatus(e),this.navigateToPage("home")}initializeDOM(){this.renderHeader(),this.renderFooter()}handleAuthStateChange(e){this.renderAuthStatus(e)}renderAuthStatus(e){const t=this.getRequiredElement("#auth-status");e.isLoggedIn?(t.innerHTML=`
         <div>
           <span>로그인 계정: ${e.user?.user_metadata?.full_name||e.user?.email||"사용자"}</span>
           <button type="button" id="logout-button" style="margin-left: 10px; padding: 5px 10px;">로그아웃</button>
